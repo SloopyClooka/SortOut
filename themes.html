@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thèmes - SortOut</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body.themes-page {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: 400% 400%;
+      animation: backgroundShift 20s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    @keyframes backgroundShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    .themes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .theme-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="themes-page">
+  <h1>Choisissez un thème</h1>
+  <div class="themes-container">
+    <a href="tirage_horreur.html" class="theme-card">👻 Horreur</a>
+    <a href="tirage_battle_royale.html" class="theme-card">🎯 Battle Royale</a>
+    <a href="tirage_survie.html" class="theme-card">🌲 Survie</a>
+    <a href="tirage_hacknslash.html" class="theme-card">⚔️ Hack’n Slash</a>
+    <a href="tirage_fps.html" class="theme-card">🔫 FPS</a>
+    <a href="tirage_rpg.html" class="theme-card">🛡️ RPG</a>
+    <a href="tirage_strategie.html" class="theme-card">🧠 Stratégie</a>
+    <a href="tirage_coop.html" class="theme-card">🤝 Coopération</a>
+    <a href="tirage_puzzle.html" class="theme-card">🧩 Puzzle</a>
+    <a href="tirage_inde.html" class="theme-card">🎮 Indé</a>
+    <a href="tirage_roguelike.html" class="theme-card">♻️ Rogue-like</a>
+    <a href="tirage_sandbox.html" class="theme-card">🧱 Sandbox</a>
+    <a href="tirage_narratif.html" class="theme-card">📖 Narratif</a>
+    <a href="tirage_aventure.html" class="theme-card">🗺️ Aventure</a>
+    <a href="tirage_multi.html" class="theme-card">🌐 Multijoueur</a>
+    <a href="tirage_scifi.html" class="theme-card">👽 Science-fiction</a>
+    <a href="tirage_vr.html" class="theme-card">🕶️ Réalité Virtuelle</a>
+  </div>
+</body>
+</html>
