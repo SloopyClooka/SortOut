@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menu - SortOut</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Même styles qu’avant — inchangés pour la mise en page */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    body.menu-page {
+      background: linear-gradient(270deg, #ff4e50, #f9d423, #1f4037, #99f2c8);
+      background-size: 800% 800%;
+      animation: GradientShift 20s ease infinite;
+      position: relative;
+      color: white;
+    }
+
+    @keyframes GradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      user-select: none;
+      text-shadow: 0 0 15px rgba(255, 78, 80, 0.9);
+    }
+
+    .logo .highlight {
+      color: #f9d423;
+      text-shadow: 0 0 20px #f9d423aa;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
+
+    .option-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .option-button {
+      display: inline-block;
+      font-size: 1.4rem;
+      padding: 1rem 2rem;
+      border-radius: 40px;
+      background: linear-gradient(45deg, #f9d423, #ff4e50);
+      color: #111;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 15px rgba(249, 212, 35, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .option-button:hover {
+      background: linear-gradient(45deg, #ff4e50, #f9d423);
+      box-shadow: 0 12px 20px rgba(255, 78, 80, 0.8);
+      transform: scale(1.05);
+      color: white;
+    }
+
+    .support-link {
+      font-size: 1rem;
+      color: white;
+      opacity: 0.7;
+      text-decoration: underline;
+    }
+
+    .support-link:hover {
+      opacity: 1;
+      color: #f9d423;
+    }
+  </style>
+</head>
+<body class="menu-page">
+  <div class="overlay">
+    <div class="logo">🎲 Sort<span class="highlight">Out</span></div>
+    <h1>Choisissez un mode de tirage</h1>
+
+    <div class="option-container">
+      <a href="#" onclick="playAndRedirect('tirage_classique.html')" class="option-button">🎮 Tirage au sort classique</a>
+      <a href="#" onclick="playAndRedirect('themes.html')" class="option-button">📂 Tirage au sort thématique</a>
+    </div>
+
+    <a href="#" class="support-link">💖 Nous soutenir</a>
+
+    <!-- Audio (invisible) -->
+    <audio id="click-sound" src="click.mp3" preload="auto"></audio>
+  </div>
+
+  <script>
+    function playAndRedirect(url) {
+      const sound = document.getElementById('click-sound');
+      sound.play();
+      // Attend la fin du son avant de rediriger (durée approximative : 300ms à 500ms)
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
+    }
+  </script>
+</body>
+</html>
