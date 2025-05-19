@@ -32,6 +32,16 @@
       100% {background-position: 0% 50%;}
     }
 
+    /* Canvas bulles */
+    #bubbles-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -58,18 +68,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Bulles canvas derrière le logo */
-    #bubbles-canvas {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 180px;
-      height: 120px;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
     .logo {
       font-size: 5rem;
       font-weight: 900;
@@ -78,7 +76,7 @@
       position: relative;
       z-index: 5;
       display: inline-block;
-      padding-right: 80px; /* Espace pour le dé */
+      padding-right: 80px;
     }
 
     .logo .highlight {
@@ -86,7 +84,6 @@
       text-shadow: 0 0 20px #f9d423aa;
     }
 
-    /* Animation du dé (petit carré animé) */
     .dice {
       position: absolute;
       top: 50%;
@@ -167,7 +164,9 @@
   </style>
 </head>
 <body class="landing">
+  <!-- 🎈 Bulles en arrière-plan -->
   <canvas id="bubbles-canvas"></canvas>
+
   <div class="overlay">
     <div class="menu">
       <div class="logo-container">
@@ -175,7 +174,6 @@
         <div class="dice">🎲</div>
       </div>
       <div class="subtitle">Tirez au sort vos choix facilement</div>
-      <!-- Chemin mis à jour selon dossier -->
       <a href="menu.html" class="start-button">Commencer</a>
     </div>
     <div class="nous-soutenir">
@@ -184,7 +182,7 @@
   </div>
 
   <script>
-    // Bulles dynamiques sur canvas
+    // 🎈 Bulles animées vers le haut
     const canvas = document.getElementById('bubbles-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -206,13 +204,12 @@
         this.radius = 5 + Math.random() * 10;
         this.speed = 0.5 + Math.random();
         this.alpha = 0.1 + Math.random() * 0.4;
-        this.dx = (Math.random() - 0.5) * 0.5;
+        this.dx = (Math.random() - 0.5) * 0.3;
       }
       update() {
         this.y -= this.speed;
         this.x += this.dx;
-        this.alpha -= 0.002;
-        if (this.alpha <= 0 || this.y + this.radius < 0 || this.x < 0 || this.x > width) {
+        if (this.y + this.radius < 0 || this.alpha <= 0) {
           this.reset();
         }
       }
@@ -245,7 +242,7 @@
       init();
     });
 
-    // Initial setup
+    // Initialisation
     resize();
     init();
     animate();
