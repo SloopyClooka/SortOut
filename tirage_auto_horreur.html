@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tirage Automatique - Horreur</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 8px #ff0000cc;
+    }
+    button {
+      background-color: #ff0000cc;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1.2rem;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      margin: 0.5rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+    #resultat {
+      margin-top: 2rem;
+      max-width: 320px;
+      box-shadow: 0 0 15px #ff0000aa;
+      padding: 1rem;
+      border-radius: 12px;
+      background-color: #222;
+      font-size: 1.5rem;
+      color: #ff4444;
+      text-shadow: 0 0 6px #ff0000cc;
+    }
+    ul#compteurs {
+      margin-top: 2rem;
+      list-style: none;
+      padding-left: 0;
+      max-width: 320px;
+      text-align: left;
+      color: #ddd;
+      font-size: 1rem;
+      background-color: #111;
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      box-shadow: 0 0 10px #ff000088;
+      max-height: 250px;
+      overflow-y: auto;
+      display: none; /* caché par défaut, affiché si checkbox coché */
+    }
+    ul#compteurs li {
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid #33000044;
+      padding-bottom: 0.3rem;
+    }
+    label {
+      margin-top: 1rem;
+      color: #eee;
+      font-size: 1rem;
+      user-select: none;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      margin-left: 0.5rem;
+      transform: scale(1.3);
+      cursor: pointer;
+      vertical-align: middle;
+    }
+    @media (max-width: 400px) {
+      body {
+        padding: 1rem;
+      }
+      #resultat, ul#compteurs {
+        max-width: 100%;
+      }
+      button {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tirage Automatique - Horreur</h1>
+
+  <button onclick="tirerAuSort()">🎲 Tirer un jeu</button>
+  <button onclick="reinitialiser()">♻️ Réinitialiser</button>
+
+  <label>
+    Afficher le compteur des tirages
+    <input type="checkbox" id="toggleCompteur" checked />
+  </label>
+
+  <div id="resultat">Cliquez sur "Tirer un jeu" pour commencer</div>
+
+  <ul id="compteurs"></ul>
+
+  <script>
+    const jeux = [
+      "Agonize", "Back 4 Blood", "The Blackout Club", "Boo Men", "Broken : Paranormal investigation",
+      "Chupacabras : Night Hunt", "Deadly Broadcast", "Deceit", "Demonologist", "Devour", "Fantôme",
+      "Fear Therapy", "FOREWARNED", "Forsake", "Ghost Exorcism INC", "Haunt Chasser", "The Headliners",
+      "In Silence", "Inside the Backrooms", "Labyrinthine", "Occult", "The Outlast Trials", "Pacify",
+      "Paranormal Cleanup", "Phasmophobia", "The Quarry", "Remnant Records", "SCP", "Sign of Silence",
+      "Slashers", "Soul Dossier", "Spirit Detective", "The Texas Chain Saw Massacre",
+      "Vade Retro : Exorcist", "Video Horror Society", "Dead by Daylight"
+    ];
+
+    let compteurs = {};
+
+    function tirerAuSort() {
+      const index = Math.floor(Math.random() * jeux.length);
+      const jeu = jeux[index];
+
+      // Incrémente compteur
+      compteurs[jeu] = (compteurs[jeu] || 0) + 1;
+
+      // Affiche résultat
+      document.getElementById("resultat").textContent = `🎮 Jeu choisi : ${jeu}`;
+
+      // Affiche compteur si coché
+      if (document.getElementById("toggleCompteur").checked) {
+        afficherListeCompteurs();
+        document.getElementById("compteurs").style.display = "block";
+      } else {
+        document.getElementById("compteurs").style.display = "none";
+      }
+    }
+
+    function afficherListeCompteurs() {
+      const ul = document.getElementById("compteurs");
+      ul.innerHTML = "";
+
+      // Trier par nombre décroissant
+      const trie = Object.entries(compteurs)
+        .sort((a, b) => b[1] - a[1]);
+
+      trie.forEach(([jeu, count]) => {
+        const li = document.createElement("li");
+        li.textContent = `${jeu} : ${count}`;
+        ul.appendChild(li);
+      });
+    }
+
+    function reinitialiser() {
+      compteurs = {};
+      document.getElementById("compteurs").innerHTML = "";
+      document.getElementById("compteurs").style.display = "none";
+      document.getElementById("resultat").textContent = "Cliquez sur \"Tirer un jeu\" pour commencer";
+      document.getElementById("toggleCompteur").checked = false;
+    }
+
+    // Gestion affichage compteur à la main
+    document.getElementById("toggleCompteur").addEventListener("change", function() {
+      if (this.checked && Object.keys(compteurs).length > 0) {
+        afficherListeCompteurs();
+        document.getElementById("compteurs").style.display = "block";
+      } else {
+        document.getElementById("compteurs").style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
