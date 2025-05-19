@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tirage Manuel Horreur - SortOut</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="tirage-horreur-manuel">
+  <h1>Tirage Horreur - Mode Manuel</h1>
+  <textarea id="listeJeux" rows="8" cols="40" placeholder="Entrez vos jeux d'horreur"></textarea>
+  <br>
+  <label><input type="checkbox" id="activerCompteur"> Ajouter un compteur</label><br><br>
+  <button onclick="tirerJeu()">🎲 Tirer un jeu</button>
+  <button onclick="reinitialiser()">🔄 Réinitialiser</button>
+  <div id="resultat"></div>
+  <ul id="compteurs" style="list-style:none;"></ul>
+
+  <script>
+    let compteurs = {};
+
+    function tirerJeu() {
+      const texte = document.getElementById("listeJeux").value.trim();
+      if (!texte) return;
+      const lignes = texte.split(/\r?\n/).filter(l => l.trim() !== "");
+      const jeu = lignes[Math.floor(Math.random() * lignes.length)];
+      const afficherCompteur = document.getElementById("activerCompteur").checked;
+
+      document.getElementById("resultat").innerText = `👻 Jeu tiré au sort : ${jeu}`;
+
+      if (afficherCompteur) {
+        compteurs[jeu] = (compteurs[jeu] || 0) + 1;
+        afficherListeCompteurs();
+      }
+    }
+
+    function afficherListeCompteurs() {
+      const ul = document.getElementById("compteurs");
+      ul.innerHTML = "";
+      for (const [jeu, count] of Object.entries(compteurs)) {
+        const li = document.createElement("li");
+        li.innerText = `${jeu} : ${count}`;
+        ul.appendChild(li);
+      }
+    }
+
+    function reinitialiser() {
+      compteurs = {};
+      document.getElementById("compteurs").innerHTML = "";
+      document.getElementById("resultat").innerText = "";
+    }
+  </script>
+</body>
+</html>
